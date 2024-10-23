@@ -27,7 +27,7 @@ def list_beers(style: Optional[str] = None):
     """Lista as cervejas no BD"""
     beers = get_beers_from_database()
     table = Table(title="Beerlog :beer_mug:")
-    headers = ["id", "name", "style", "rate", "date"]
+    headers = ["id", "name", "style", "flavor", "rate", "date"]
     for header in headers:
         table.add_column(header, style="magenta")
     for beer in beers:
