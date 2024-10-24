@@ -1,8 +1,9 @@
 from typing import Optional
-from sqlmodel import SQLModel, Field, select
+from sqlmodel import SQLModel, Field
 from pydantic import validator
 from statistics import mean
 from datetime import datetime
+
 
 class Beer(SQLModel, table_name="beers", table=True):
     id: int = Field(primary_key=True, default=None, index=True)
@@ -12,7 +13,7 @@ class Beer(SQLModel, table_name="beers", table=True):
     image: int
     cost: int
     date: datetime = Field(default_factory=datetime.now)
-#    ibu: int
+    #    ibu: int
     rate: int = 0
 
     @validator("flavor", "image", "cost", pre=True)
@@ -23,15 +24,11 @@ class Beer(SQLModel, table_name="beers", table=True):
 
     @validator("rate", always=True)
     def calculate_rate(cls, v, values):
-        rate = mean(
-            [
-                values["flavor"], 
-                values["image"],
-                values["cost"]
-            ]
-        )
+        rate = mean([values["flavor"], values["image"], values["cost"]])
         return int(rate)
-"""        
+
+
+"""
 try:
     brewdog = Beer(name="BrewDog", style="EIPA", flavor=6, cost=8, image=8)
     print(brewdog)

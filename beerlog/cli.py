@@ -8,19 +8,21 @@ from rich.console import Console
 main = typer.Typer(help="Meu gestor de Cerveja")
 console = Console()
 
+
 @main.command("add")
 def add(
-    name:   str, 
-    style:  str,
+    name: str,
+    style: str,
     flavor: int = typer.Option(...),
-    image:  int = typer.Option(...),
-    cost:   int = typer.Option(...)
+    image: int = typer.Option(...),
+    cost: int = typer.Option(...),
 ):
     """Add uma nova cerveja no BD"""
     if add_beer_to_database(name, style, flavor, image, cost):
         print("🍻 Adicionada ao banco de dados!!")
     else:
         print("\n{no_entry}")
+
 
 @main.command("list")
 def list_beers(style: Optional[str] = None):
