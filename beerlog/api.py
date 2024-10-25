@@ -12,6 +12,9 @@ api = FastAPI(title="Beerlog")
 
 @api.get("/beers/", response_model=List[BeerOut])
 async def list_beers():
+    """
+    Lista as cervejas no BD
+    """
     beers = get_beers_from_database()
     return beers
 
